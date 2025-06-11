@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% extends "index.html" %}
+{% load static %}
+
+{% block main_content %}
+<div class="container-fluid mt-4">
+    <div class="row align-items-center">
+        <div class="col-md-3">
+            <div style="background-color: #27ae60; color: #fff; font-size: 1.2rem; font-weight: 500; border-radius: 0.3rem; padding: 0.5rem 2.5rem; width: 100%; text-align: center;">
+                Register new user.
+            </div>
+        </div>
+        <div class="col-md-9 d-flex justify-content-center align-items-center">
+            <span style="font-size: 1.2rem; font-weight: 500; color: #222;">
+                Search readers
+            </span>
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col-md-3">
+            <div style="background-color: #e3f2fd; border-radius: 0.5rem; height: 500px; padding: 1rem;">
+                <table style="width: 100%;">
+                    <tr>
+                        <td><label for="name" style="font-weight: 600;">Name:</label></td>
+                        <td><input type="text" id="name" name="name" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="contact" style="font-weight: 600;">Contact:</label></td>
+                        <td><input type="text" id="contact" name="contact" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="reference_id" style="font-weight: 600;">Reference ID:</label></td>
+                        <td><input type="text" id="reference_id" name="reference_id" class="form-control"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="address" style="font-weight: 600;">Address:</label></td>
+                        <td><input type="text" id="address" name="address" class="form-control" style="min-width: 180px; width: 100%;"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" style="text-align: center;">
+                            <button class="btn btn-primary" type="submit">Save</button>
+                        </td>
+                    </tr>
+                </table>
+                <ul style="text-align: left; vertical-align: middle; padding-left: 15px;"></ul>
+                    <li><small>Readers should not register multiple times</small></li>
+                    <li><small>Only admin can register new readers</small></li>
+                    <li><small>Duplicate readers will be deactivated</small></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="row">
+                <nav class="navbar bg-body-light">
+                    <div class="container-fluid justify-content-center align-items-center">
+                        <form class="d-flex" role="search">
+                           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                           <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

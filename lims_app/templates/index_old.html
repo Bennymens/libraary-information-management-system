@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <style>
+            .my_label{
+                color: rgb(10, 99, 216);
+                font-weight: bold;
+                font-size: 20px;
+            }
+            .my_input {
+                width: 250px;
+                height: 32px;
+                font-size: 16px;
+                border-radius: 6px;
+                border: 1px solid #ccc;
+                padding: 4px 8px;
+                box-sizing: border-box;
+            }
+        </style>
+
+        <meta charset="UTF-8">
+        <title>Library Information Management System</title>
+        <style>
+            button[type="submit"] {
+                margin-top: 15px;
+                margin-bottom: 15px;
+                border-radius: 20px;
+                padding: 8px 0;
+                width: 250px;
+                border: none;
+                background-color: #0d9482;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+                transition: background 0.3s;
+            }
+            button[type="submit"]:hover {
+                background-color: #0d8888;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Welcome to our library</h1>
+        <form method="POST" action="/save_student">
+            {% csrf_token %}
+            <table>
+                <tbody>
+                    <tr>
+                        <td><label class="my_label" for="student_name">Student Name:</label></td>
+                        <td><input class="my_input" type="text" id="student_name" name="student_name" required></td>
+                    </tr>
+                    <tr>
+                        <td><label class="my_label" for="email">Email:</label></td>
+                        <td><input class="my_input" type="email" id="email" name="email" required></td>
+                    </tr>
+                    <tr>
+                        <td><label class="my_label" for="age">Age:</label></td>
+                        <td><input class="my_input" type="number" id="age" name="age" min="1" required></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td style="text-align: left;">
+                            <button type="submit">Submit</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <a href="/shop">Shopping</a>
+    </body>
+</html>

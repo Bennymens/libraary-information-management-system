@@ -1,0 +1,13 @@
+{% extends "index.html" %}
+{% load static %}
+
+{% block main_content %}
+    <div class="d-flex align-items-center">
+        <img src="{% static 'lims_app/LIMS_LOGO.png' %}" class="rounded me-3" alt="LIMS" height="200">
+        <div>
+            <h1 class="display-4 mb-0">Hello, Readers</h1>
+            <p>Welcome to our library, we have a vast collection of books to keep you entertained.</p>
+            <button type="button" class="btn btn-primary btn-lg"> Browse our collection>></button>
+        </div>
+    </div>
+{% endblock %}
