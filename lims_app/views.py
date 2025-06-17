@@ -29,9 +29,13 @@ def readers(request):
         )
         return redirect('readers')
 
+    # Add this line to get only active readers
+    active_readers = [r for r in readers_list if r.active]
+
     return render(request, 'readers.html', {
         "title": "Readers",
         "current_tab": "readers",
         "readers": readers_list,
+        "active_readers": active_readers,  # <-- add this
         "query": query,
     })
