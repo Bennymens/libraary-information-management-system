@@ -1,3 +1,58 @@
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def edit_profile(request):
+    user = request.user
+    if request.method == 'POST':
+        user.first_name = request.POST.get('first_name', user.first_name)
+        user.last_name = request.POST.get('last_name', user.last_name)
+        user.email = request.POST.get('email', user.email)
+        user.save()
+        from django.contrib import messages
+        messages.success(request, "Profile updated successfully.")
+        return redirect('profile')
+    return render(request, 'edit_profile.html', {
+        "title": "Edit Profile",
+        "current_tab": "profile"
+    })
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def profile(request):
+    return render(request, 'profile.html', {
+        "title": "Profile",
+        "current_tab": "profile"
+    })
+
+def logout(request):
+    from django.contrib.auth import logout as auth_logout
+    auth_logout(request)
+    return redirect('login')
+from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+
+def register(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        email = request.POST.get('email')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+        if password1 != password2:
+            messages.error(request, "Passwords do not match.")
+        elif User.objects.filter(username=username).exists():
+            messages.error(request, "Username already exists.")
+        elif User.objects.filter(email=email).exists():
+            messages.error(request, "Email already exists.")
+        else:
+            user = User.objects.create_user(username=username, email=email, password=password1)
+            user.save()
+            messages.success(request, "Registration successful. Please log in.")
+            return redirect('login')
+    return render(request, 'register.html', {
+        "title": "Register",
+        "current_tab": "register"
+    })
 # Book API view
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -20,35 +75,19 @@ def home(request):
     })
 
 def readers(request):
-    query = request.GET.get('q', '')
-    if query:
-        readers_list = reader.objects.filter(
-            Q(reader_name__icontains=query) |
-            Q(reader_email__icontains=query) |
-            Q(reference_id__icontains=query)
-        )
-    else:
-        readers_list = reader.objects.all()
-
     if request.method == 'POST':
-        reader.objects.create(
-            reader_name=request.POST['reader_name'],
-            reader_email=request.POST['reader_email'],
-            reference_id=request.POST['reference_id'],
-            reader_address=request.POST['reader_address'],
-            active=True
-        )
-        return redirect('readers')
-
-    # Add this line to get only active readers
-    active_readers = [r for r in readers_list if r.active]
-
-    return render(request, 'readers.html', {
-        "title": "Readers",
-        "current_tab": "readers",
-        "readers": readers_list,
-        "active_readers": active_readers,  # <-- add this
-        "query": query,
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            auth_login(request, user)
+            return redirect('home')
+        else:
+            from django.contrib import messages
+            messages.error(request, "Invalid username or password.")
+    return render(request, 'login.html', {
+        "title": "Login",
+        "current_tab": "login"
     })
 
 def books(request):

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Profile</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .edit-container {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      padding: 30px;
+    }
+
+    .edit-container h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      display: block;
+      color: #444;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="file"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      outline: none;
+      transition: border 0.3s ease;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border: 1px solid #ff6b35;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .save-btn {
+      background: linear-gradient(135deg, #ff6b35, #e63946);
+      color: white;
+    }
+
+    .save-btn:hover {
+      background: linear-gradient(135deg, #e65c2d, #cc2f3d);
+    }
+
+    .cancel-btn {
+      background: #ddd;
+      color: #333;
+    }
+
+    .cancel-btn:hover {
+      background: #bbb;
+    }
+
+    .profile-pic-preview {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .profile-pic-preview img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #ff6b35;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="edit-container">
+    <h1>Edit Profile</h1>
+    <form>
+      <!-- Profile Picture -->
+      <div class="form-group">
+        <label>Profile Picture</label>
+        <div class="profile-pic-preview">
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde" alt="Current Avatar">
+          <input type="file" accept="image/*">
+        </div>
+      </div>
+
+      <!-- Name -->
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" value="Jane Doe">
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" value="jane.doe@email.com">
+      </div>
+
+      <!-- Bio -->
+      <div class="form-group">
+        <label>Bio</label>
+        <textarea placeholder="Write something about yourself...">Avid reader & book lover. Exploring worlds one page at a time 📚✨</textarea>
+      </div>
+
+      <!-- Favorite Genre -->
+      <div class="form-group">
+        <label>Favorite Genre</label>
+        <select>
+          <option selected>Fiction</option>
+          <option>Non-fiction</option>
+          <option>Fantasy</option>
+          <option>Science Fiction</option>
+          <option>Mystery</option>
+          <option>Romance</option>
+          <option>Biography</option>
+        </select>
+      </div>
+
+      <!-- Actions -->
+      <div class="form-actions">
+        <button type="button" class="cancel-btn">Cancel</button>
+        <button type="submit" class="save-btn">Save Changes</button>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>

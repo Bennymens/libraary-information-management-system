@@ -191,9 +191,6 @@
                             <a class="nav-link {% if current_tab == 'home' %}active{% endif %}" href="/home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if current_tab == 'readers' %}active{% endif %}" href="/readers">Readers</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link {% if current_tab == 'books' %}active{% endif %}" href="/books">Books</a>
                         </li>
                         <li class="nav-item">
@@ -202,6 +199,24 @@
                         <li class="nav-item">
                             <a class="nav-link {% if current_tab == 'returns' %}active{% endif %}" href="/returns">Returns</a>
                         </li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center" style="width:32px; height:32px; font-size:1.2rem;">
+                                    <i class="bi bi-person"></i>
+                                </span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                                <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                            </ul>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link {% if current_tab == 'login' %}active{% endif %}" href="/login">Login</a>
+                        </li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

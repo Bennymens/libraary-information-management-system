@@ -20,11 +20,15 @@ from . import views
 urlpatterns = [
     path('', views.home, name='home'),
     path('home', views.home, name='home'),
-    path('readers', views.readers, name='readers'),
+    path('login', views.readers, name='login'),
     path('books', views.books, name='books'),
     path('mybag', views.mybag, name='mybag'),
     path('returns', views.returns, name='returns'),
     path('books/api/', views.book_list_api, name='book_list_api'),
+    path('register', views.register, name='register'),
+    path('profile', views.profile, name='profile'),
+    path('logout', views.logout, name='logout'),
+    path('edit_profile', views.edit_profile, name='edit_profile'),
 ]
 
 

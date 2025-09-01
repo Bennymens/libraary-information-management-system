@@ -1,0 +1,215 @@
+{% extends "index.html" %}
+{% block main_content %}
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f5f5;
+    margin: 0;
+    padding: 0;
+  }
+  .profile-container {
+    width: 95%;
+    max-width: 1000px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
+  .profile-header {
+    background: linear-gradient(135deg, #ff6b35, #e63946);
+    color: white;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+  }
+  .profile-header img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    margin-bottom: 15px;
+    object-fit: cover;
+  }
+  .profile-header h1 {
+    margin: 10px 0 5px;
+  }
+  .profile-header p {
+    font-size: 0.95rem;
+    color: #f5f5f5;
+  }
+  .edit-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: white;
+    color: #ff6b35;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .edit-btn:hover {
+    background: #f5f5f5;
+  }
+  .profile-stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #222;
+  }
+  .stat p {
+    margin: 5px 0 0;
+    color: #777;
+    font-size: 0.9rem;
+  }
+  .section {
+    padding: 25px;
+  }
+  .section h2 {
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  .book-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 15px;
+  }
+  .book-card {
+    background: #fafafa;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+  .book-card:hover {
+    transform: translateY(-5px);
+  }
+  .book-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+  .book-info {
+    padding: 12px;
+  }
+  .book-title {
+    font-size: 0.95rem;
+    font-weight: bold;
+    margin: 0;
+    color: #222;
+  }
+  .book-author {
+    font-size: 0.8rem;
+    color: #666;
+  }
+  .fav-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: #e63946;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: transform 0.2s ease;
+  }
+  .fav-btn:hover {
+    transform: scale(1.1);
+  }
+</style>
+<div class="profile-container">
+  <!-- Header -->
+  <div class="profile-header">
+  <a href="/edit_profile" class="edit-btn" style="text-decoration:none;">Edit Profile</a>
+    <img src="https://ui-avatars.com/api/?name={{ user.first_name|default:user.username }}&background=ff6b35&color=fff&size=120" alt="User Avatar">
+    <h1>{{ user.get_full_name|default:user.username }}</h1>
+    <p>
+      {% if user.email %}
+        {{ user.email }}
+      {% else %}
+        Avid reader & book lover. Exploring worlds one page at a time 📚✨
+      {% endif %}
+    </p>
+  </div>
+
+  <!-- Stats -->
+  <div class="profile-stats">
+    <div class="stat">
+      <h3>42</h3>
+      <p>Books Read</p>
+    </div>
+    <div class="stat">
+      <h3>18</h3>
+      <p>Favorites</p>
+    </div>
+    <div class="stat">
+      <h3>12</h3>
+      <p>Reviews</p>
+    </div>
+  </div>
+
+  <!-- Book History -->
+  <div class="section">
+    <h2>📖 Book History</h2>
+    <div class="book-list">
+      <p style="color:#888;">No recent books yet.</p>
+      
+      {% for book in recent_books %}
+        <div class="book-card">
+          {% if book.cover %}
+            <img src="{{ book.cover.url }}" alt="Book Cover">
+          {% else %}
+            <img src="https://via.placeholder.com/200x300?text=No+Cover" alt="Book Cover">
+          {% endif %}
+          <button class="fav-btn">{% if book in favorite_books %}❤️{% else %}♡{% endif %}</button>
+          <div class="book-info">
+            <p class="book-title">{{ book.title }}</p>
+            <p class="book-author">{{ book.author }}</p>
+          </div>
+        </div>
+      {% endfor %}
+      
+    </div>
+  </div>
+
+  <!-- Favorites -->
+  <div class="section">
+    <h2>⭐ Favorite Books</h2>
+    <div class="book-list">
+      <p style="color:#888;">No favorite books yet.</p>
+    
+      {% for book in favorite_books %}
+        <div class="book-card">
+          {% if book.cover %}
+            <img src="{{ book.cover.url }}" alt="Book Cover">
+          {% else %}
+            <img src="https://via.placeholder.com/200x300?text=No+Cover" alt="Book Cover">
+          {% endif %}
+          <button class="fav-btn">❤️</button>
+          <div class="book-info">
+            <p class="book-title">{{ book.title }}</p>
+            <p class="book-author">{{ book.author }}</p>
+          </div>
+        </div>
+      {% endfor %}
+      
+    </div>
+  </div>
+</div>
+{% endblock %}
