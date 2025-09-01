@@ -21,6 +21,10 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('home', views.home, name='home'),
     path('readers', views.readers, name='readers'),
+    path('books', views.books, name='books'),
+    path('mybag', views.mybag, name='mybag'),
+    path('returns', views.returns, name='returns'),
+    path('books/api/', views.book_list_api, name='book_list_api'),
 ]
 
 
